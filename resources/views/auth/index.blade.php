@@ -32,12 +32,12 @@
                     <div class="row justify-content-center">
                         <div class="col-md-11 my-3">
                             @if($msg = Session::get('success'))
-                                <div class="alert alert-success">
+                                <div class="alert alert-success text-center">
                                     <small>{{$msg}}</small>
                                 </div>
                             @endif
                             @if($msg = Session::get('failed'))
-                                <div class="alert alert-danger">
+                                <div class="alert alert-danger text-center">
                                     <small>{{$msg}}</small>
                                 </div>
                             @endif

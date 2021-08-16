@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Login</title>
+  <title>Daftar Akun</title>
   <!-- Custom fonts for this template-->
   <link href="{{asset('template/admin/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -15,7 +15,7 @@
 </head>
 <body class="bg-dark">
   <div class="container">
-    <div class="row justify-content-center" style="margin-top:1%; margin-bottom:1%;">
+    <div class="row justify-content-center" style="margin-top:1.5%; margin-bottom:1.5%;">
         <div class="col-md-8">
             <div class="card shadow">
                 <div class="card-body">
@@ -41,8 +41,8 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="nik">Nomor Induk Kependudukan (NIK)</label>
-                                        <input type="text" name="nik" class="form-control form-control-user @error('nik') is-invalid @enderror" id="nik" placeholder="Masukkan NIK" value="{{old('nik')}}" autocomplete="off" autofocus>
+                                        <label for="nik">NIK</label>
+                                        <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" id="nik" placeholder="Masukkan NIK" value="{{old('nik')}}" autocomplete="off" onkeypress="return validationNumberOnly(event)" autofocus>
                                         <div>
                                             @error('nik')
                                                 <small class="text-danger">{{$errors->first('nik')}}</small>
@@ -53,7 +53,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="nama">Nama</label>
-                                        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan nama (sesuai KTP)" value="{{old('nama')}}" autocomplete="off" autofocus>
+                                        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan nama (sesuai KTP)" value="{{old('nama')}}" onkeypress="return validationAlpha(event)" autocomplete="off" autofocus>
                                         <div>
                                             @error('nama')
                                                 <small class="text-danger">{{$errors->first('nama')}}</small>
@@ -66,8 +66,8 @@
                                         <label for="jk">Jenis Kelamin</label>
                                         <select class="form-control custom-select @error('jk') is-invalid @enderror" name="jk" id="jk">
                                             <option value="" selected disabled>Pilih jenis kelamin</option>
-                                            <option value="0" @if(old('jk') == 'l') selected @endif>Laki-laki</option>
-                                            <option value="1" @if(old('jk') == 'p') selected @endif>Perempuan</option>
+                                            <option value="l" @if(old('jk') == 'l') selected @endif>Laki-laki</option>
+                                            <option value="p" @if(old('jk') == 'p') selected @endif>Perempuan</option>
                                         </select>
                                         <div>
                                             @error('jk')
@@ -79,7 +79,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="no_telp">Nomor Telepon</label>
-                                        <input class="form-control @error('no_telp') is-invalid @enderror" type="text" name="no_telp" id="no_telp" placeholder="Masukkan nomor telepon" value="{{old('no_telp')}}">
+                                        <input class="form-control @error('no_telp') is-invalid @enderror" type="text" name="no_telp" id="no_telp" placeholder="Masukkan nomor telepon" value="{{old('no_telp')}}" onkeypress="return validationNumberOnly(event)">
                                         <div>
                                             @error('no_telp')
                                                 <small class="text-danger custom-number">{{$errors->first('no_telp')}}</small>
@@ -90,7 +90,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Masukkan email" value="{{old('email')}}" autocomplete="off" autofocus>
+                                        <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Masukkan email" value="{{old('email')}}" autocomplete="off" autofocus onkeypress="return validationEmail(event)">
                                         <div>
                                             @error('email')
                                                 <small class="text-danger">{{$errors->first('email')}}</small>
@@ -142,5 +142,22 @@
   <script src="{{asset('template/admin/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
   <!-- Custom scripts for all pages-->
   <script src="{{asset('template/admin/js/sb-admin-2.min.js')}}"></script>
+  <script src="{{asset('custom/script.js')}}"></script>
+
+  {{-- <script>
+    var numberOnly = document.getElementsByTagName('input');
+    numberOnly.type = 'number';
+    numberOnly.onkeypress = numberOnly;
+
+    function numberOnly(evt){
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) 
+            return false;
+        return true;
+        console.log('p');
+    }
+  </script> --}}
+
+
 </body>
 </html>

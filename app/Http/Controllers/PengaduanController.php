@@ -137,4 +137,11 @@ class PengaduanController extends Controller
 
     //     return view('pengaduan.riwayat', compact('data','teks'));
     // }
+
+
+    public function getNotif(){
+        $data = Pengaduan::whereStatus('terkirim')->get();
+
+        return response()->json($data);
+    }
 }

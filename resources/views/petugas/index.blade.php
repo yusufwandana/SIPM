@@ -7,15 +7,15 @@
     <div class="card-header py-3">
         <div class="row">
             <div class="col-md">
-                <h5 class="font-weight-bold mt-2">
+                <h4 class="font-weight-bold mt-2">
                     Data Petugas
-                </h5>
-                @if (Auth::user()->role == 'admin')
-                <a href="{{route('petugas.create')}}" class="btn btn-outline-primary btn-sm float-right">
-                    <i class="fas fa-plus"></i>
-                    Tambah petugas baru
-                </a>
-                @endif
+                    @if (Auth::user()->role == 'admin')
+                        <a href="{{route('petugas.create')}}" class="btn btn-outline-primary btn-sm float-right">
+                            <i class="fas fa-plus"></i>
+                            Tambah petugas baru
+                        </a>
+                    @endif
+                </h4>
             </div>
         </div>
     </div>

@@ -1,13 +1,13 @@
 @extends('layouts.master-admin')
 
-@section('title', 'Data User')
+@section('title', 'Akun Pengguna')
 
 @section('content')
 <div class="card shadow mb-4 animated--grow-in">
     <div class="card-header py-3">
         <div class="row">
             <div class="col-md">
-                <h5 class="font-weight-bold mt-2">Data Akun</h5>
+                <h4 class="font-weight-bold mt-2">Akun Pengguna</h4>
             </div>
         </div>
     </div>

@@ -30,10 +30,10 @@
         <ul class="navbar-nav ml-auto">
             <li>
                 <div class="dropdown">
-                    <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i></a>
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="notif"><i class="icon feather icon-bell"></i></a>
                     <div class="dropdown-menu dropdown-menu-right notification">
                         <div class="noti-head">
-                            <h6 class="d-inline-block m-b-0">Notifications</h6>
+                            <h6 class="d-inline-block m-b-0">Notifikasi</h6>
                             <div class="float-right">
                                 <a href="#!" class="m-r-10">mark as read</a>
                                 <a href="#!">clear all</a>
@@ -41,7 +41,7 @@
                         </div>
                         <ul class="noti-body">
                             <li class="n-title">
-                                <p class="m-b-0">NEW</p>
+                                <p class="m-b-0">Baru</p>
                             </li>
                             <li class="notification">
                                 <div class="media">
@@ -130,10 +130,8 @@
                             </a>
                         </div>
                         <ul class="pro-body">
-                            <li><a href="#!" class="dropdown-item"><i class="feather icon-settings"></i> Settings</a></li>
-                            <li><a href="#!" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
-                            <li><a href="message.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
-                            <li><a href="{{route('logout')}}" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                            <li><a href="{{route('myAccount')}}" class="dropdown-item"><i class="feather icon-user"></i> Akun Saya</a></li>
+                            <li><a href="{{route('logout')}}" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Keluar</a></li>
                         </ul>
                     </div>
                 </div>

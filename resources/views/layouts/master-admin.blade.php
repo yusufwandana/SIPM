@@ -29,6 +29,8 @@
 	<link rel="stylesheet" href="{{asset('lite/assets/css/style.css')}}">
     {{-- Data tables --}}
     <script src="http://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"></script>
+	{{-- Ajax --}}
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
     <!-- Custom styles for this page -->
     <link href="{{asset('template/admin/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
     <style>
@@ -83,6 +85,8 @@
             $('.myTable').DataTable();
         });
     </script>
+
+	@yield('customjs')
 
 </body>
 

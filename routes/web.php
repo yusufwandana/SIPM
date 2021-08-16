@@ -24,6 +24,12 @@ Route::post('login/post', 'AuthController@login')->name('postlog');
 Route::post('register/post', 'AuthController@postreg')->name('postreg');
 Route::get('logout', 'AuthController@logout')->name('logout');
 
+// Profile
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('informasi-akun', 'UserController@myAccount')->name('myAccount');
+});
+
+
 Route::group(['middleware' => ['auth', 'cekRole:admin']], function(){
     // Petugas
     Route::get('petugas/tambah', 'PetugasController@create')->name('petugas.create');
@@ -45,9 +51,7 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,petugas']], function(){
     // Masyarakat
     Route::get('masyarakat', 'MasyarakatController@index')->name('masyarakat.index');
     Route::delete('masyarakat/hapus/{id}', 'MasyarakatController@hapus')->name('masyarakat.hapus');
-    // Route::get('pengaduan/histori', 'PengaduanController@histori')->name('pengaduan.histori');
     Route::get('pengaduan/cari', 'PengaduanController@cari')->name('pengaduan.cari');
-    // Route::get('pengaduan/cari-histori', 'PengaduanController@cariHistori')->name('pengaduan.cari-histori');
     Route::delete('pengaduan/hapus/{id}', 'PengaduanController@hapusPengaduan')->name('pengaduan.hapus');
     Route::get('pengaduan/beri-tanggapan/{id}', 'PengaduanController@beriTanggapan')->name('pengaduan.beri_tanggapan');
     Route::post('pengaduan/tanggapan/post', 'PengaduanController@postTanggapan')->name('pengaduan.post_tanggapan');

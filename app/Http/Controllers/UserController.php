@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 
+use Auth;
+
 class UserController extends Controller
 {
     public function index()
@@ -27,5 +29,12 @@ class UserController extends Controller
         $data->delete();
 
         return back()->with('success','Akun telah berhasil dihapus.');
+    }
+
+    public function myAccount()
+    {
+        $data = User::find(Auth::user()->id);
+        
+        return view('user.profile', compact('data'));
     }
 }

@@ -50,6 +50,8 @@ function time_since($original){
 
 @extends('layouts.master-admin')
 
+@section('title', 'Beri Tanggapan')
+
 @section('content')
 <div class="card">
     <div class="card-body">

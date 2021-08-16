@@ -141,8 +141,8 @@ return [
         ],
         'no_telp' => [
             'required' => 'Kolom nomor telepon tidak boleh kosong.',
-            'min'      => 'Kolom nomor telepon minimal harus :min karakter.',
-            'max'      => 'Kolom nomor telepon tidak boleh melebihi :max karakter.'
+            'min'      => 'Kolom nomor telepon minimal harus :min angka.',
+            'max'      => 'Kolom nomor telepon tidak boleh melebihi :max angka.'
         ],
     ],
 

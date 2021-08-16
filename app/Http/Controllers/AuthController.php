@@ -70,16 +70,16 @@ class AuthController extends Controller
         ]);
 
         $user = User::create([
-            'nama'      => $request->nama,
-            'email'     => $request->email,
+            'nama'      => ucwords($request->nama),
+            'email'     => strtolower($request->email),
             'password'  => bcrypt($request->password),
             'role'      => 'masyarakat'
         ]);
 
         Masyarakat::create([
             'nik'       =>  $request->nik,
-            'nama'      =>  $request->nama,
-            'jk'        =>  $request->jenis_kelamin,
+            'nama'      =>  ucwords($request->nama),
+            'jk'        =>  $request->jk,
             'no_telp'   =>  $request->no_telp,
             'alamat'    =>  $request->alamat,
             'user_id'   =>  $user->id

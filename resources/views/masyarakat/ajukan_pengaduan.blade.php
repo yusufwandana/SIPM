@@ -58,3 +58,15 @@
     </div>
 </div>
 @endsection
+
+@section('customjs')
+    <script>
+        $(document).ready(function(){
+            $('#customFile').on('change', function(){
+                var x = $(this).val();
+                var fileName = x.substring(12,999);
+                $(this).next('.custom-file-label').html(fileName);
+            });
+        })
+    </script>
+@endsection

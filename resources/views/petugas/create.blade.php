@@ -21,7 +21,7 @@
                             <div class="form-group">
                               <label for="nama">Nama</label>
                               <input type="text" name="nama" placeholder="Masukkan nama.." class="form-control @error('nama') is-invalid @enderror" value="{{old('nama')}}">
-                              <small class="text-danger">{{$errors->first('nama')}}</small>
+                              <label class="text-danger">{{$errors->first('nama')}}</label>
                             </div>
                             <div class="form-group">
                               <label for="jk">Jenis kelamin</label>
@@ -30,29 +30,29 @@
                                   <option value="l">Laki-laki</option>
                                   <option value="p">Perempuan</option>
                               </select>
-                              <small class="text-danger">{{$errors->first('jk')}}</small>
+                              <label class="text-danger">{{$errors->first('jk')}}</label>
                             </div>
                             <div class="form-group">
                               <label for="no_telp">Nomor telepon</label>
                               <input type="number" id="no_telp" name="no_telp" placeholder="Masukkan nomor telepon.." class="form-control @error('no_telp') is-invalid @enderror" value="{{old('no_telp')}}">
-                              <small class="text-danger">{{$errors->first('no_telp')}}</small>
+                              <label class="text-danger">{{$errors->first('no_telp')}}</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                               <label for="email">Email</label>
                               <input type="email" id="email" name="email" placeholder="Masukkan email.." class="form-control @error('email') is-invalid @enderror" value="{{old('email')}}">
-                              <small class="text-danger">{{$errors->first('email')}}</small>
+                              <label class="text-danger">{{$errors->first('email')}}</label>
                             </div>
                             <div class="form-group">
                               <label for="password">Password</label>
                               <input type="password" id="password" name="password" placeholder="Masukkan password.." class="form-control @error('password') is-invalid @enderror">
-                              <small class="text-danger">{{$errors->first('password')}}</small>
+                              <label class="text-danger">{{$errors->first('password')}}</label>
                             </div>
                           <div class="form-group">
                               <label for="alamat">Alamat</label>
                               <textarea type="text" name="alamat" id="alamat" rows="5" cols="5" name="alamat" class="form-control @error('email') is-invalid @enderror" placeholder="Masukkan alamat...">{{old('alamat')}}</textarea>
-                              <small class="text-danger">{{$errors->first('alamat')}}</small>
+                              <label class="text-danger">{{$errors->first('alamat')}}</label>
                           </div>
                         </div>
                     </div>

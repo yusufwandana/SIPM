@@ -12,19 +12,18 @@
                 <li class="nav-item pcoded-menu-caption">
                     <label>Halaman Utama</label>
                 </li>
-                <li class="nav-item">
-                    @if (Auth::user()->role == 'admin' || Auth::user()->role == 'petugas')
-                        <a href="{{route('dashboard.admin')}}" class="nav-link">
-                            <span class="pcoded-micon"><i class="fas fa-home"></i></span>
-                            <span class="pcoded-mtext">Dashboard</span>
-                        </a>
-                    @elseif(Auth::user()->role == 'masyarakat')
-                    <a href="{{route('dashboard.masyarakat')}}" class="nav-link">
+                <li class="nav-item">                    
+                    <a href="@if (Auth::user()->role == 'admin' || Auth::user()->role == 'petugas') {{route('dashboard.admin')}} @elseif(Auth::user()->role == 'masyarakat') {{route('dashboard.masyarakat')}} @endif" class="nav-link">
                         <span class="pcoded-micon"><i class="fas fa-home"></i></span>
                         <span class="pcoded-mtext">Dashboard</span>
                     </a>
-                    @endif
                 </li>
+                {{-- <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <span class="pcoded-micon"><i class="fas fa-cog"></i></span>
+                        <span class="pcoded-mtext">Konfigurasi</span>
+                    </a>
+                </li> --}}
 
                 @if (Auth::user()->role == 'admin' || Auth::user()->role == 'petugas')
                 <li class="nav-item pcoded-menu-caption">

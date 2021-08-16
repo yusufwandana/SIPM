@@ -137,12 +137,8 @@
                     <div class="mt-3">
                         <h4>Pengirim</h4>
                         <p class="mb-0 text-justify">
-                            @if ($item->masyarakat->jk == 'l')
-                                Bapak/Saudara
-                            @else
-                                Ibu/Saudari
-                            @endif
-                            {{$item->masyarakat->nama}} - NIK. {{$item->masyarakat->nik}}
+                            Bapak/Ibu
+                            {{ucwords($item->masyarakat->nama)}} - NIK. {{$item->masyarakat->nik}}
                         </p>
                         <p class="mb-0">
                             Dari {{ucwords($item->masyarakat->alamat)}}
@@ -186,9 +182,9 @@
                     @foreach ($item->tanggapan as $respon)
                         <div class="row mb-4">
                             <div class="col-md">
-                                <h6 style="line-height:0;">{{$respon->user->nama}} ({{$respon->user->role}})</h6>
+                                <h6 style="line-height:0;">{{ucwords($respon->user->nama)}} ({{$respon->user->role}})</h6>
                                 <p class="mb-0">
-                                    {{time_since(strtotime($respon->created_at))}} | <a href="{{route('pengaduan.hapus_tanggapan', $respon->id)}}">Hapus</a>
+                                    {{time_since(strtotime($respon->created_at))}} @if (Auth::user()->role == 'admin') | <a href="{{route('pengaduan.hapus_tanggapan', $respon->id)}}">Hapus</a> @endif
                                 </p>
                                 <div class="my-1" style="border-bottom-color:blue; border-bottom-width:2px;border-bottom-style:solid;width:50px;"></div>
                                 <p class="mb-0">
