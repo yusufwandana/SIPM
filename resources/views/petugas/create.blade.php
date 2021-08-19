@@ -20,7 +20,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                               <label for="nama">Nama</label>
-                              <input type="text" name="nama" placeholder="Masukkan nama.." class="form-control @error('nama') is-invalid @enderror" value="{{old('nama')}}">
+                              <input type="text" name="nama" placeholder="Masukkan nama.." class="form-control @error('nama') is-invalid @enderror" value="{{old('nama')}}" onkeypress="return validationAlpha(event)">
                               <label class="text-danger">{{$errors->first('nama')}}</label>
                             </div>
                             <div class="form-group">
@@ -34,14 +34,14 @@
                             </div>
                             <div class="form-group">
                               <label for="no_telp">Nomor telepon</label>
-                              <input type="number" id="no_telp" name="no_telp" placeholder="Masukkan nomor telepon.." class="form-control @error('no_telp') is-invalid @enderror" value="{{old('no_telp')}}">
+                              <input type="number" id="no_telp" name="no_telp" placeholder="Masukkan nomor telepon.." class="form-control @error('no_telp') is-invalid @enderror" value="{{old('no_telp')}}" onkeypress="return validationNumberOnly(event)">
                               <label class="text-danger">{{$errors->first('no_telp')}}</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                               <label for="email">Email</label>
-                              <input type="email" id="email" name="email" placeholder="Masukkan email.." class="form-control @error('email') is-invalid @enderror" value="{{old('email')}}">
+                              <input type="email" id="email" name="email" placeholder="Masukkan email.." class="form-control @error('email') is-invalid @enderror" value="{{old('email')}}" onkeypress="return validationEmail(event)">
                               <label class="text-danger">{{$errors->first('email')}}</label>
                             </div>
                             <div class="form-group">

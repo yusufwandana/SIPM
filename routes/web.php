@@ -33,14 +33,15 @@ Route::group(['middleware' => ['auth']], function(){
 Route::group(['middleware' => ['auth', 'cekRole:admin']], function(){
     // Petugas
     Route::get('petugas/tambah', 'PetugasController@create')->name('petugas.create');
-    Route::post('petugas/tambah/post', 'PetugasController@addPetugas')->name('petugas.add');
-    Route::get('petugas/edit/{id}', 'PetugasController@edit')->name('petugas.edit');
-    Route::post('petugas/update/{id}', 'PetugasController@update')->name('petugas.update');
-    Route::delete('petugas/hapus/{id}', 'PetugasController@hapus')->name('petugas.hapus');
+    Route::post('petugas', 'PetugasController@addPetugas')->name('petugas.add');
+    Route::get('petugas/{petugas:id}', 'PetugasController@edit')->name('petugas.edit');
+    Route::put('petugas/{petugas:id}', 'PetugasController@update')->name('petugas.update');
+    Route::delete('petugas/{petugas:id}', 'PetugasController@hapus')->name('petugas.hapus');
     // User
     Route::get('akun', 'UserController@index')->name('user.index');
-    Route::get('akun/edit/{id}', 'UserController@edit')->name('user.edit');
-    Route::delete('akun/delete/{id}', 'UserController@delete')->name('user.delete');
+    // Route::get('akun/{id}', 'UserController@edit')->name('user.edit');
+    // Route::put('akun/{id}', 'UserController@update')->name('user.update');
+    Route::delete('akun/{id}', 'UserController@delete')->name('user.delete');
 });
 
 Route::group(['middleware' => ['auth', 'cekRole:admin,petugas']], function(){
@@ -50,9 +51,12 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,petugas']], function(){
     Route::get('petugas', 'PetugasController@index')->name('petugas.index');
     // Masyarakat
     Route::get('masyarakat', 'MasyarakatController@index')->name('masyarakat.index');
-    Route::delete('masyarakat/hapus/{id}', 'MasyarakatController@hapus')->name('masyarakat.hapus');
+    Route::get('masyarakat/{masyarakat:id}', 'MasyarakatController@edit')->name('masyarakat.edit');
+    Route::put('masyarakat/{masyarakat:id}', 'MasyarakatController@update')->name('masyarakat.update');
+    Route::delete('masyarakat/{id}', 'MasyarakatController@hapus')->name('masyarakat.hapus');
+    // Pengaduan
     Route::get('pengaduan/cari', 'PengaduanController@cari')->name('pengaduan.cari');
-    Route::delete('pengaduan/hapus/{id}', 'PengaduanController@hapusPengaduan')->name('pengaduan.hapus');
+    Route::delete('pengaduan/{id}', 'PengaduanController@hapusPengaduan')->name('pengaduan.hapus');
     Route::get('pengaduan/beri-tanggapan/{id}', 'PengaduanController@beriTanggapan')->name('pengaduan.beri_tanggapan');
     Route::post('pengaduan/tanggapan/post', 'PengaduanController@postTanggapan')->name('pengaduan.post_tanggapan');
     Route::get('pengaduan/hapus-tanggapan/{id}', 'PengaduanController@hapusTanggapan')->name('pengaduan.hapus_tanggapan');
@@ -64,10 +68,10 @@ Route::group(['middleware' => ['auth', 'cekRole:admin,petugas,masyarakat']], fun
     Route::get('dashboard/masyarakat', 'DashboardController@masyarakat')->name('dashboard.masyarakat');
     // Pengaduan
     Route::get('pengaduan', 'PengaduanController@index')->name('pengaduan.index');
-    Route::get('ajukan-pengaduan', 'MasyarakatController@ajukanPengaduan')->name('pengaduan.ajukan');
-    Route::post('riwayat-pengaduan', 'MasyarakatController@postPengaduan')->name('pengaduan.post');
-    Route::get('batalkan-pengaduan/{id}', 'MasyarakatController@batalkanPengaduan')->name('pengaduan.batalkan');
-    Route::get('riwayat-pengaduan', 'MasyarakatController@riwayatPengaduan')->name('pengaduan.riwayat');
+    Route::get('pengaduan/pengajuan', 'PengaduanController@ajukanPengaduan')->name('pengaduan.ajukan');
+    Route::post('pengaduan', 'PengaduanController@postPengaduan')->name('pengaduan.post');
+    Route::get('pengaduan/batal/{id}', 'PengaduanController@batalkanPengaduan')->name('pengaduan.batalkan');
+    Route::get('pengaduan/riwayat', 'PengaduanController@riwayatPengaduan')->name('pengaduan.riwayat');
 });
 
 

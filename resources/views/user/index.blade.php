@@ -22,16 +22,16 @@
         </div>
     @endif
     <div class="table-responsive">
-        <table class="table table-bordered table-sm" id="dataTable" cellspacing="0">
+        <table class="table table-bordered table-sm table-hover" id="dataTable" cellspacing="0">
         <thead>
             <tr>
-            <th>No</th>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>Role</th>
-            @if (Auth::user()->role == 'admin')
-            <th width="100px">Aksi</th>
-            @endif
+                <th>No</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Role</th>
+                @if (Auth::user()->role == 'admin')
+                <th width="100px">Aksi</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -50,7 +50,7 @@
                 <td>
                     <form action="{{route('user.delete', $item->id)}}" method="post">
                         @csrf @method('delete')
-                        <a href="{{route('user.edit', $item->id)}}" class="btn btn-outline-warning btn-sm"><i class="fas fa-pen"></i>Edit</a>
+                        {{-- <a href="{{route('user.edit', $item->id)}}" class="btn btn-outline-warning btn-sm"><i class="fas fa-pen"></i>Edit</a> --}}
                         <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Jika Anda menghapus data ini, maka seluruh data yang berhubungan dengan data ini akan ikut terhapus. Anda yakin?')">
                             <i class="fas fa-trash"></i>Hapus
                         </button>

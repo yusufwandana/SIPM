@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Aktivitas;
 use App\Pengaduan;
 use App\Masyarakat;
 
@@ -10,6 +10,7 @@ class DashboardController extends Controller
 {
     public function admin()
     {
+        $user = auth()->user(); 
         $belum      = Pengaduan::where('status', 'terkirim')->get()->count();
         $proses     = Pengaduan::where('status', 'proses')->get()->count();
         $selesai    = Pengaduan::where('status', 'selesai')->get()->count();
@@ -22,9 +23,14 @@ class DashboardController extends Controller
             'jumlah'    => $jumlah
         ];
 
-        // dd($data['proses']);
+        if ($user->role === 'admin') {
+            $aktivitas = Aktivitas::orderBy('created_at','desc')->get();
+        }else{
+            $aktivitas = Aktivitas::orderBy('created_at','desc')->where('user_id', auth()->user()->id)->get();
+        }
 
-        return view('admin.dashboard', compact('data'));
+        
+        return view('admin.dashboard', compact('data','user','aktivitas'));
     }
 
     public function petugas()
@@ -50,6 +56,8 @@ class DashboardController extends Controller
             'jumlah'    =>  $jumlah
         ];
 
-        return view('masyarakat.dashboard', compact('data'));
+        $aktivitas = Aktivitas::orderBy('created_at','desc')->where('user_id', auth()->user()->id)->get();
+
+        return view('masyarakat.dashboard', compact('data', 'aktivitas'));
     }
 }

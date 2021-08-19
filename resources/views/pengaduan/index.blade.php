@@ -63,6 +63,15 @@
         </div>
     </div>
 </div>
+@elseif($msg = Session::get('failed'))
+<div class="row">
+    <div class="col-md">
+        <div class="alert alert-danger">
+            <i class="fas fa-times-circle mr-1"></i>
+            {{$msg}}
+        </div>
+    </div>
+</div>
 @endif
 
 <div class="card">
@@ -85,7 +94,7 @@
         <div class="row">
             <div class="col-md">
                 <div class="alert alert-success">
-                    Menampilkan {{$teks['jumlah']}} data yang berhubungan dengan kata {{$teks['keyWord']}}.
+                    Menampilkan {{$teks['jumlah']}} data yang berhubungan dengan kata '{{$teks['keyWord']}}'.
                 </div>
             </div>
         </div>
@@ -137,7 +146,7 @@
                     <div class="mt-3">
                         <h4>Pengirim</h4>
                         <p class="mb-0 text-justify">
-                            Bapak/Ibu
+                            {{ $item->masyarakat->jk === 'l' ? 'Bapak/Saudara' : 'Ibu/Saudari' }}
                             {{ucwords($item->masyarakat->nama)}} - NIK. {{$item->masyarakat->nik}}
                         </p>
                         <p class="mb-0">
@@ -168,7 +177,7 @@
                 <i class="fas fa-image"></i>
                 Foto
             </a>
-            @if (Auth::user()->role == 'masyarakat')
+            @if (Auth::user()->role == 'masyarakat' && $item->status != 'dibatalkan')
             <a class="btn btn-outline-danger btn-sm m-t-5" href="{{route('pengaduan.batalkan', $item->id)}}">
                 <i class="fas fa-ban"></i>
                 Batalkan
@@ -182,7 +191,7 @@
                     @foreach ($item->tanggapan as $respon)
                         <div class="row mb-4">
                             <div class="col-md">
-                                <h6 style="line-height:0;">{{ucwords($respon->user->nama)}} ({{$respon->user->role}})</h6>
+                                <h6 style="line-height:0;">{{ucwords($respon->user->nama)}}</h6>
                                 <p class="mb-0">
                                     {{time_since(strtotime($respon->created_at))}} @if (Auth::user()->role == 'admin') | <a href="{{route('pengaduan.hapus_tanggapan', $respon->id)}}">Hapus</a> @endif
                                 </p>

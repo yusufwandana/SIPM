@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Petugas');
     }
+
+    public function aktivitas()
+    {
+        return $this->hasMany('App\Aktivitas');
+    }
 }

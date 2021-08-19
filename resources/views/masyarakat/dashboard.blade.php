@@ -73,4 +73,35 @@
     <!-- product profit end -->
 </div>
 <!-- [ Main Content ] end -->
+
+<div class="row">
+    <div class="col-md">
+        <div class="card">
+            <div class="card-header">
+                <h3>Aktivitas Akun</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Aktivitas</th>
+                            <th>Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{-- @php $no = 1; @endphp --}}
+                        @foreach ($aktivitas as $item)
+                        <tr>
+                            <td>{{ucwords($item->aktivitas)}}</td>
+                            <td>{{$item->created_at}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

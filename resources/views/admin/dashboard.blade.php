@@ -73,4 +73,44 @@
     <!-- product profit end -->
 </div>
 <!-- [ Main Content ] end -->
+
+<div class="row">
+    <div class="col-md">
+        <div class="card">
+            <div class="card-header">
+                <h3>Aktivitas Akun</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Aktivitas</th>
+                            @if ($user->role === 'admin')
+                            <th>Nama</th>
+                            <th>Email</th>
+                            @endif
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{-- @php $no = 1; @endphp --}}
+                        @foreach ($aktivitas as $item)
+                        <tr>
+                            <td>{{$item->created_at}}</td>
+                            <td>{{ucwords($item->aktivitas)}}</td>
+                            @if ($user->role === 'admin')
+                            <td>{{$item->user->nama}}</td>
+                            <td>{{$item->user->email}}</td>
+                            @endif
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection

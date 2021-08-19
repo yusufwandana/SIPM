@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Masyarakat;
 use App\Pengaduan;
+use App\User;
 use Auth;
 
 class MasyarakatController extends Controller
@@ -16,71 +17,61 @@ class MasyarakatController extends Controller
 
     public function index()
     {
-        $data = Masyarakat::all();
+        $data = Masyarakat::orderBy('nama', 'asc')->get();
         return view('masyarakat.index', compact('data'));
     }
 
-    public function ajukanPengaduan()
+    public function edit(Masyarakat $masyarakat)
     {
-        $data = Masyarakat::where('user_id', auth()->user()->id)->first();
-        return view('masyarakat.ajukan_pengaduan', compact('data'));
+        return view('masyarakat.edit', compact('masyarakat'));
     }
 
+    public function update(Request $request, Masyarakat $masyarakat)
+    {
+        $this->validate($request, [
+            'nik'     =>  'required|numeric|digits:16',
+            'nama'    =>  'required',
+            'email'   =>  'required|email',
+            'jk'      =>  'required',
+            'no_telp' =>  'required|min:10|max:15',
+            'alamat'  =>  'required|min:8',
+        ]);
 
+        $masyarakat->update([
+            'nik'     =>  ucwords($request->nik),
+            'nama'    =>  ucwords($request->nama),
+            'jk'      =>  $request->jk,
+            'no_telp' =>  $request->no_telp,
+            'alamat'  =>  $request->alamat,
+        ]);
+
+        $user = User::find($masyarakat->user_id);
+        $user->update([
+            'nama'  =>  ucwords($request->nama),
+            'email' =>  $request->email,
+        ]);
+
+        return redirect()->route('masyarakat.index')->with('success', 'Data telah berhasi diupdate!');
+    }
+
+    public function hapus($id)
+    {
+        $masyarakat = Masyarakat::find($id);
+        $user = User::find($masyarakat->user_id);
+        if ($user) {
+            $user->delete();
+        }
+
+        $masyarakat->delete();
+
+        return redirect()->route('masyarakat.index')->with('success', 'Data telah berhasi dihapus!');
+    }
+
+    
     public function detailPengaduan($id)
     {
         $data = Pengaduan::where('id', $id)->with('Masyarakat')->first();
         return view('masyarakat.detail-pengaduan', compact('data'));
     }
 
-    public function  postPengaduan(Request $request)
-    {
-        $this->validate($request, [
-            'judul'             =>  'required',
-            'teks_pengaduan'    =>  'required',
-            'file'              =>  'file|mimes:.jpeg,jpg,png|max:2048'
-        ]);
-
-        $user = Auth::user();
-        $masyarakat = Masyarakat::where('user_id', $user->id)->first();
-
-        if ($request->file) {
-            $time = time();
-            $id   = uniqid();
-            $file = $request->file;
-            $fileName  = $time . $id . '.' . $file->getClientOriginalExtension();
-            $moveto = 'images/pengaduan';
-            $file->move($moveto, $fileName);
-        }else{
-            $fileName = '';
-        }
-
-        Pengaduan::create([
-            'judul'             => htmlspecialchars($request->judul),
-            'masyarakat_id'     => $masyarakat->id,
-            'teks_pengaduan'    => htmlspecialchars($request->teks_pengaduan),
-            'foto'              => $fileName,
-            'status'            => 'terkirim',
-            'user_id'           => $user->id
-        ]);
-
-        return redirect()->route('pengaduan.index')->with('success', 'Pengaduan telah dikirimkan. Tunggu respon dari petugas dalam 1x24 jam. Terima kasih.');
-    }
-
-    public function hapus($id)
-    {
-        $masyarakat = Masyarakat::find($id)->delete();
-
-        return redirect()->route('masyarakat.index')->with('success', 'Data telah berhasi dihapus!');
-    }
-
-    public function batalkanPengaduan($id)
-    {
-        $data = Pengaduan::find($id);
-        $data->update([
-            'status'    =>  'dibatalkan'
-        ]);
-
-        return redirect()->back()->with('success', 'Pengaduan No.'.$data->id.' telah Anda batalkan.');
-    }
 }

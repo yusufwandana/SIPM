@@ -48,40 +48,46 @@ class PetugasController extends Controller
         return redirect()->route('petugas.index')->with('success', 'Petugas telah berhasil ditambahkan!');
     }
 
-    public function edit($id)
+    public function edit(Petugas $petugas)
     {
-        $data = Petugas::where('id', $id)->with('User')->first();
-
-        return view('petugas.edit', compact('data'));
+        return view('petugas.edit', compact('petugas'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Petugas $petugas)
     {
         $this->validate($request, [
             'nama'      => 'required',
+            'email'     => 'required|email',
             'jk'        => 'required',
             'no_telp'   => 'required|min:10|max:15',
             'alamat'    => 'required'
         ]);
 
-        $data = Petugas::find($id);
-        $data->nama     = ucwords($request->nama);
-        $data->jk       = $request->jk;
-        $data->no_telp  = $request->no_telp;
-        $data->alamat   = ucwords($request->alamat);
-        $data->save();
+        $user = User::find($petugas->user_id);
 
-        $user = User::find($data->user_id);
-        $user->nama     =   ucwords($request->nama);
-        $user->save();
+        $petugas->update([
+            'nama'     => ucwords($request->nama),
+            'jk'       => $request->jk,
+            'no_telp'  => $request->no_telp,
+            'alamat'   => ucwords($request->alamat),
+        ]);
+
+        $user->update([
+            'nama'  => ucwords($request->nama),
+            'email' => strtolower($request->email),
+            'role'  => 'petugas'
+        ]);
 
         return redirect()->route('petugas.index')->with('success', 'Data petugas telah berhasil diupdate!');
     }
 
-    public function hapus($id)
+    public function hapus(Petugas $petugas)
     {
-        $petugas = Petugas::find($id);
+        if ($petugas) {
+            $petugas->delete();
+        }
         User::find($petugas->user_id)->delete();
+
         return redirect()->back()->with('success', 'Data petugas berhasil dihapus!');
     }
 }

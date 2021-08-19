@@ -3,24 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\Masyarakat;
 use Auth;
+use App\Aktivitas;
+use App\Masyarakat;
+use App\User;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+    }
+
     public function index()
     {
-        $user = User::all()->count();
-        if ($user == 0) {
-            User::create([
-                'nama' => 'Administrator',
-                'email' => 'admin@gmail.com',
-                'password' => bcrypt('admin'),
-                'role' => 'admin'
-            ]);
-        }
-
         return view('auth.index');
     }
 
@@ -43,11 +39,20 @@ class AuthController extends Controller
         }
 
         if (Auth::attempt($request->only('email', 'password'))) {
-            if (auth()->user()->role == 'admin') {
+
+            $user = auth()->user();
+
+            Aktivitas::create([
+                'aktivitas' =>  'login',
+                'user_id'   =>  $user->id,
+            ]);
+
+            $role = $user->role;
+            if ($role == 'admin') {
                 return redirect()->route('dashboard.admin')->with('success', 'Selamat datang!');
-            }elseif (auth()->user()->role == 'petugas') {
+            }elseif ($role == 'petugas') {
                 return redirect()->route('dashboard.admin')->with('success', 'Selamat datang!');
-            }elseif (auth()->user()->role == 'masyarakat') {
+            }elseif ($role == 'masyarakat') {
                 return redirect()->route('dashboard.masyarakat')->with('success', 'Selamat datang!');
             }else{
                 return redirect()->back();
@@ -90,6 +95,10 @@ class AuthController extends Controller
 
     public function logout()
     {
+        Aktivitas::create([
+            'aktivitas' =>  'logout',
+            'user_id'   =>  auth()->user()->id,
+        ]);
         Auth::logout();
         return redirect('login');
     }

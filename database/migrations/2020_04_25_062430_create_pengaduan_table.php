@@ -15,12 +15,13 @@ class CreatePengaduanTable extends Migration
     {
         Schema::create('pengaduan', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('judul');
             $table->integer('masyarakat_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->string('judul');
+            $table->string('slug');
             $table->text('teks_pengaduan');
             $table->string('foto');
             $table->string('status');
-            $table->integer('user_id')->unsigned();
             $table->foreign('masyarakat_id')->references('id')->on('masyarakat')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
